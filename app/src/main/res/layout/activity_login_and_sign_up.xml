@@ -1,0 +1,85 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal"
+    tools:context=".LoginAndSignUpActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true" />
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="700dp"
+        android:background="@drawable/blue_bg">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="300dp">
+
+            <TextView
+                android:id="@+id/wc"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Welcome to,"
+                android:textColor="@color/white"
+                android:layout_marginLeft="50dp"
+                android:layout_centerVertical="true"
+                android:textSize="20sp" />
+
+            <TextView
+                android:id="@+id/gavs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="GAVS"
+                android:textColor="@color/white"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="50dp"
+                android:layout_below="@+id/wc"
+                />
+            <TextView
+                android:id="@+id/smartAttendance"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Smart Attendance"
+                android:textColor="@color/white"
+                android:textSize="40sp"
+                android:textStyle="bold"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="50dp"
+                android:layout_below="@+id/gavs"
+                />
+
+        </RelativeLayout>
+
+    </FrameLayout>
+
+    <Button
+        android:id="@+id/login"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="400dp"
+        android:background="@drawable/bg_btn"
+        android:text="LOGIN"
+        android:textColor="@color/color" />
+
+    <Button
+        android:id="@+id/signup"
+        android:layout_width="200dp"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/login"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="5dp"
+        android:background="@drawable/bg_btn3"
+        android:text="SIGN UP"
+        android:textColor="@color/white" />
+
+
+</RelativeLayout>
+

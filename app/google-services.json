@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "206050159448",
+    "firebase_url": "https://gavs-smart-attendance-app-default-rtdb.firebaseio.com",
+    "project_id": "gavs-smart-attendance-app",
+    "storage_bucket": "gavs-smart-attendance-app.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:206050159448:android:80249ae27e9c63a90b932d",
+        "android_client_info": {
+          "package_name": "com.example.gavssmartattendanceapp"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "206050159448-q1m7v979fj6b8i0ej4dfplsai1148d2h.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDQU3d51Dtxoi4AgS-Iz0QvnGQbjZvwX_8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "206050159448-q1m7v979fj6b8i0ej4dfplsai1148d2h.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

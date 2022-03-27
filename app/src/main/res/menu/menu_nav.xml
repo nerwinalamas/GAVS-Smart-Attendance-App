@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item
+        android:id="@+id/btm_create_classroom"
+        android:title="Classroom"
+        android:icon="@drawable/ic_classroom"/>
+
+    <item
+        android:id="@+id/btm_create_event"
+        android:title="Event"
+        android:icon="@drawable/ic_event2"/>
+
+    <item
+        android:id="@+id/btm_appointment"
+        android:title="Appointment"
+        android:icon="@drawable/ic_schedule"/>
+
+    <item
+        android:id="@+id/btm_create_qrcode"
+        android:title="Create "
+        android:icon="@drawable/ic_qrcode"/>
+
+    <item
+        android:id="@+id/btm_profile"
+        android:title="Profile"
+        android:icon="@drawable/ic_account_box"/>
+</menu>
