@@ -89,6 +89,28 @@ public class AppointmentRoomActivity extends AppCompatActivity {
             //fab2
             add.setOnClickListener(v1 -> {
 
+                String rn = roomName.getEditText().getText().toString().trim();
+                String sn = subName.getEditText().getText().toString().trim();
+                String t = time.getEditText().getText().toString().trim();
+
+                if (rn.isEmpty()) {
+                    roomName.setError("Room Name is required");
+                    roomName.requestFocus();
+                    return;
+                }
+
+                if (sn.isEmpty()) {
+                    subName.setError("Subname is required");
+                    subName.requestFocus();
+                    return;
+                }
+
+                if (t.isEmpty()) {
+                    time.setError("Time is required");
+                    time.requestFocus();
+                    return;
+                }
+
                 Appointments appointments = new Appointments();
                 appointments.setApRoomName(roomName.getEditText().getText().toString());
                 appointments.setApSubName(subName.getEditText().getText().toString());

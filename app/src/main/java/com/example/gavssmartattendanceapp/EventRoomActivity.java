@@ -89,12 +89,27 @@ public class EventRoomActivity extends AppCompatActivity {
 
             //fab2
             add.setOnClickListener(v1 -> {
-//                        DataBase DB = new DataBase(SixthActivity.this);
-//                        DB.insertEvent(eventName.getEditText().getText().toString(),
-//                                eventLocation.getEditText().getText().toString(),
-//                                time.getEditText().getText().toString());
-//                        Toast.makeText(getApplicationContext(), "Created Successfully", Toast.LENGTH_SHORT).show();
-//                        dialog.dismiss();
+                String en = eventName.getEditText().getText().toString().trim();
+                String el = eventLocation.getEditText().getText().toString().trim();
+                String t = time.getEditText().getText().toString().trim();
+
+                if (en.isEmpty()) {
+                    eventName.setError("Event Name is required");
+                    eventName.requestFocus();
+                    return;
+                }
+
+                if (el.isEmpty()) {
+                    eventLocation.setError("Event Location is required");
+                    eventLocation.requestFocus();
+                    return;
+                }
+
+                if (t.isEmpty()) {
+                    time.setError("Time is required");
+                    time.requestFocus();
+                    return;
+                }
 
                 Events events = new Events();
                 events.setName(eventName.getEditText().getText().toString());

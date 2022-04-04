@@ -17,6 +17,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import static java.lang.System.err;
+
 public class HealthDeclarationFormActivity extends AppCompatActivity {
 
     TextInputLayout name, address, contactNo, purposeOfVisit, temperature;
@@ -86,10 +88,14 @@ public class HealthDeclarationFormActivity extends AppCompatActivity {
                 String question5_yes = q5_yes.getText().toString();
                 String question5_no = q5_no.getText().toString();
 
-                //String radGroup1 = rg1.toString();
-
                 if (Name.isEmpty()) {
                     name.setError("Full Name is required");
+                    name.requestFocus();
+                    return;
+                }
+
+                if (Name.length() < 6) {
+                    name.setError("Minimum length should be 6 characters");
                     name.requestFocus();
                     return;
                 }
@@ -100,8 +106,20 @@ public class HealthDeclarationFormActivity extends AppCompatActivity {
                     return;
                 }
 
+                if (Address.length() < 6) {
+                    address.setError("Minimum length should be 6 characters");
+                    address.requestFocus();
+                    return;
+                }
+
                 if (ContactNo.isEmpty()) {
                     contactNo.setError("Contact Number is required");
+                    contactNo.requestFocus();
+                    return;
+                }
+
+                if (ContactNo.length() < 11) {
+                    contactNo.setError("Please input valid contact number");
                     contactNo.requestFocus();
                     return;
                 }
@@ -112,17 +130,26 @@ public class HealthDeclarationFormActivity extends AppCompatActivity {
                     return;
                 }
 
-                if (Temperature.isEmpty()) {
-                    temperature.setError("Temperature is required");
-                    temperature.requestFocus();
+                if (PurposeOfVisit.length() < 6) {
+                    purposeOfVisit.setError("Minimum length should be 6 characters");
+                    purposeOfVisit.requestFocus();
                     return;
                 }
 
                 if (Temperature.isEmpty()) {
                     temperature.setError("Temperature is required");
                     temperature.requestFocus();
+
+                    int Temp = Integer.parseInt(Temperature);
+                    if (Temp > 37.2) {
+                        temperature.setError("Your temperature is too high please consult your doctor and isolate");
+                        temperature.requestFocus();
+                        return;
+                    }
                     return;
                 }
+
+                System.out.println(err);
 
                 healthForm.setHfName(name.getEditText().getText().toString().trim());
                 healthForm.setHfAddress(address.getEditText().getText().toString().trim());

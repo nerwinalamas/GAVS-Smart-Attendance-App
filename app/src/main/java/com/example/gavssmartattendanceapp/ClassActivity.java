@@ -10,7 +10,6 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
-import androidx.appcompat.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -19,13 +18,13 @@ import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.gavssmartattendanceapp.adapters.ClassAdapter;
 import com.example.gavssmartattendanceapp.models.Classroom;
 import com.example.gavssmartattendanceapp.models.ScanStudents;
-import com.example.gavssmartattendanceapp.models.HealthForm;
 import com.example.gavssmartattendanceapp.models.User;
 import com.getbase.floatingactionbutton.FloatingActionButton;
 import com.google.firebase.auth.FirebaseAuth;
@@ -99,8 +98,8 @@ public class ClassActivity extends AppCompatActivity {
         recyclerView.setAdapter(classAdapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(ClassActivity.this));
 
-        className = getIntent().getStringExtra("className");
-        subjectCode = getIntent().getStringExtra("subjectCode");
+        className = getIntent().getStringExtra("classname");
+        subjectCode = getIntent().getStringExtra("subject");
         section = getIntent().getStringExtra("section");
         cn.setText(className);
         sc.setText(subjectCode);

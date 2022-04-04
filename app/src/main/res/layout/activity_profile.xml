@@ -32,7 +32,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:text="ICCT PASS APP"
+                android:text="GAVS Smart Attendance"
                 android:textSize="20sp"
                 android:textStyle="bold" />
 
@@ -41,7 +41,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textColor="@color/white"
-                android:text="icctpassapp@gmail.com"
+                android:text="gavsattendance.icct@gmail.com"
                 android:textSize="15sp" />
 
         </LinearLayout>

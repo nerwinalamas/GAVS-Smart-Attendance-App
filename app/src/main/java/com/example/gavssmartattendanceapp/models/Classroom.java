@@ -4,6 +4,15 @@ public class Classroom {
     private String name;
     private String subjectCode;
     private String section;
+    private String classId;
+
+    public String getClassId() {
+        return classId;
+    }
+
+    public void setClassId(String classId) {
+        this.classId = classId;
+    }
 
     public String getName() {
         return name;

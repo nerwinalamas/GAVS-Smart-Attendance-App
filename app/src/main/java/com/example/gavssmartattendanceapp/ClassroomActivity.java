@@ -26,7 +26,6 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 
 public class ClassroomActivity extends AppCompatActivity {
 
@@ -34,8 +33,8 @@ public class ClassroomActivity extends AppCompatActivity {
     private DatabaseReference databaseReference;
     private ClassroomAdapter createAdapter;
     private ArrayList<Classroom> classes;
+    ArrayList<String> id, className, subjectCode, section;
     private RecyclerView recyclerView;
-    TextInputLayout className, subjectCode,section;
     private String userId;
     private ValueEventListener classRoomValueEventListener;
 
@@ -52,15 +51,22 @@ public class ClassroomActivity extends AppCompatActivity {
 
         floatingActionButton1 = findViewById(R.id.fab_create_classroom);
 
+        id = new ArrayList<>();
+        className = new ArrayList<>();
+        subjectCode = new ArrayList<>();
+        section = new ArrayList<>();
+
         classes = new ArrayList<>();
-        createAdapter = new ClassroomAdapter(this, classes);
+        createAdapter = new ClassroomAdapter(classes);
 
         recyclerView = findViewById(R.id.recyclerView_class);
         recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setAdapter(createAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(ClassroomActivity.this));
 
         getClassRoom();
+
+        createAdapter.setOnItemClickListener(this::gotoCCActivity);
 
         //Floating Button
         floatingActionButton1.setOnClickListener(new View.OnClickListener() {
@@ -70,9 +76,9 @@ public class ClassroomActivity extends AppCompatActivity {
                 dialog.setContentView(R.layout.activity_dialogbox_cc);
                 dialog.setTitle("Create Classroom");
 
-                className = (TextInputLayout) dialog.findViewById(R.id.class_name);
-                subjectCode = (TextInputLayout) dialog.findViewById(R.id.subject_code);
-                section = (TextInputLayout) dialog.findViewById(R.id.section);
+                TextInputLayout className = (TextInputLayout) dialog.findViewById(R.id.class_name);
+                TextInputLayout subjectCode = (TextInputLayout) dialog.findViewById(R.id.subject_code);
+                TextInputLayout section = (TextInputLayout) dialog.findViewById(R.id.section);
 
                 Button add = dialog.findViewById(R.id.add);
                 Button cancel = dialog.findViewById(R.id.cancel);
@@ -86,27 +92,29 @@ public class ClassroomActivity extends AppCompatActivity {
                         String sc = subjectCode.getEditText().getText().toString().trim();
                         String s = section.getEditText().getText().toString().trim();
 
-                        if (cn.isEmpty() || sc.isEmpty() || s.isEmpty()) {
-                            Toast.makeText(ClassroomActivity.this, "Please insert a Class Name, Subject and Section", Toast.LENGTH_SHORT).show();
+                        if (cn.isEmpty()) {
+                            className.setError("Class Name is required");
+                            className.requestFocus();
                             return;
                         }
 
-                        HashMap<String, String> classMap = new HashMap<>();
-                        classMap.put("className", cn);
-                        classMap.put("subjectCode", sc);
-                        classMap.put("section", s);
+                        if (sc.isEmpty()) {
+                            subjectCode.setError("Subject Code is required");
+                            subjectCode.requestFocus();
+                            return;
+                        }
 
-                        Classroom c = new Classroom();
-                        c.setName(cn);
-                        c.setSubjectCode(sc);
-                        c.setSection(s);
-                        databaseReference
-                                .child("Classrooms")
-                                .child(userId)
-                                .push()
-                                .setValue(c, (error, ref) -> {
-                                    Toast.makeText(ClassroomActivity.this, "Class added", Toast.LENGTH_SHORT).show();
-                                });
+                        if (s.isEmpty()) {
+                            section.setError("Section is required");
+                            section.requestFocus();
+                            return;
+                        }
+
+                        Classroom classroom = new Classroom();
+                        classroom.setName(className.getEditText().getText().toString());
+                        classroom.setSubjectCode(subjectCode.getEditText().getText().toString());
+                        classroom.setSection(section.getEditText().getText().toString());
+                        createClass(classroom);
                         dialog.dismiss();
                     }
                 });
@@ -120,7 +128,6 @@ public class ClassroomActivity extends AppCompatActivity {
                 dialog.show();
             }
         });
-
 
         //Bottom Navigation Bar
         bottomNavigationView.setOnNavigationItemSelectedListener(new BottomNavigationView.OnNavigationItemSelectedListener() {
@@ -151,6 +158,15 @@ public class ClassroomActivity extends AppCompatActivity {
         });
     }
 
+    private void gotoCCActivity(int position) {
+        Classroom classroom = classes.get(position);
+        Intent intent = new Intent(this, ClassActivity.class);
+        intent.putExtra("classname", classroom.getName());
+        intent.putExtra("subject", classroom.getSubjectCode());
+        intent.putExtra("section", classroom.getSection());
+        startActivity(intent);
+    }
+
     private void getClassRoom(){
         classRoomValueEventListener = new ValueEventListener() {
             @Override
@@ -159,7 +175,10 @@ public class ClassroomActivity extends AppCompatActivity {
                 if(snapshot.hasChildren()) {
                     for (DataSnapshot dataSnapshot : snapshot.getChildren()) {
                         Classroom classroom = dataSnapshot.getValue(Classroom.class);
-                        classes.add(classroom);
+                        if(classroom != null) {
+                            classroom.setClassId(dataSnapshot.getKey());
+                            classes.add(classroom);
+                        }
                     }
                 }
                 createAdapter.notifyDataSetChanged();
@@ -174,6 +193,14 @@ public class ClassroomActivity extends AppCompatActivity {
                 .child("Classrooms")
                 .child(userId)
                 .addValueEventListener(classRoomValueEventListener);
+    }
+
+    private void createClass(Classroom classroom){
+
+        databaseReference.child("Classrooms")
+                .child(userId)
+                .push()
+                .setValue(classroom, (error, ref) -> Toast.makeText(getApplicationContext(), "Created Successfully", Toast.LENGTH_SHORT).show());
     }
 
     @Override

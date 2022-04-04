@@ -1,8 +1,11 @@
 package com.example.gavssmartattendanceapp;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -21,6 +24,7 @@ public class HealthDeclarationQRActivity extends AppCompatActivity {
 
     ImageView hd_generated_qr;
     DatabaseReference databaseReference;
+    Button back_btn;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +32,7 @@ public class HealthDeclarationQRActivity extends AppCompatActivity {
         setContentView(R.layout.activity_health_declaration_qr);
 
         hd_generated_qr = findViewById(R.id.hd_img_qr);
+        back_btn = findViewById(R.id.hd_btn_back);
 
         databaseReference = FirebaseDatabase.getInstance().getReference().child("Health Declarations");
 
@@ -54,6 +59,14 @@ public class HealthDeclarationQRActivity extends AppCompatActivity {
             @Override
             public void onCancelled(DatabaseError databaseError) {
 
+            }
+        });
+
+        back_btn.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(HealthDeclarationQRActivity.this, AppointmentRoomActivity.class);
+                startActivity(intent);
             }
         });
     }
